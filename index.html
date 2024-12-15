@@ -1,78 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Payment</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-image: url('https://media.giphy.com/media/l0HlHvW6Of8KItFdK/giphy.gif');
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-        h1 {
-            margin-bottom: 20px;
-            text-shadow: 0 0 5px cyan;
-        }
-        input, button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solana Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: url('https://cdn.pixabay.com/photo/2018/03/12/20/57/circuit-board-3222029_960_720.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    input {
+      width: 300px;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h1>Send $1 Worth of SOL with a Message</h1>
-    <input type="text" id="wallet" placeholder="Your Solana Wallet Address">
-    <input type="text" id="message" placeholder="Enter your message">
-    <button onclick="submitPayment()">Pay Now</button>
+  <h1>Send $1 Worth of SOL with a Message</h1>
+  <form id="paymentForm" onsubmit="event.preventDefault(); submitPayment();">
+    <input type="text" id="wallet" placeholder="Your Solana Wallet Address" required>
+    <input type="text" id="message" placeholder="Enter your message" required>
+    <button type="submit">Pay Now</button>
     <p id="status"></p>
+  </form>
 
-    <script>
-        async function submitPayment() {
-            const wallet = document.getElementById('wallet').value;
-            const message = document.getElementById('message').value;
-            const status = document.getElementById('status');
+  <script>
+    async function submitPayment() {
+      const walletInput = document.getElementById("wallet");
+      const messageInput = document.getElementById("message");
+      const status = document.getElementById("status");
 
-            if (!wallet || !message) {
-                status.textContent = "Please enter wallet and message.";
-                return;
-            }
+      const wallet = walletInput.value.trim();
+      const message = messageInput.value.trim();
 
-            try {
-                const priceInUSD = 1; // $1 worth of SOL
-                const solPrice = 60; // Placeholder price: $60 per SOL
-                const solAmount = (priceInUSD / solPrice).toFixed(4);
+      if (!wallet || !message) {
+        status.textContent = "Please fill in both fields.";
+        return;
+      }
 
-                const response = await fetch('https://script.google.com/macros/s/AKfycbzKglp6lCEKUwzPkHMpif2LDDzaADAzx1EMevqHFbKDCVqld6ZtmGgmFPOYB_zJUbzw/exec', {
-                    method: "POST",
-                    body: JSON.stringify({
-                        wallet: wallet,
-                        message: message,
-                        transaction: `Payment of ${solAmount} SOL`
-                    }),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
+      status.textContent = "Processing...";
 
-                const result = await response.text();
-                status.textContent = "Payment Successful! Your message has been recorded.";
-            } catch (error) {
-                console.error(error);
-                status.textContent = "Error: Unable to process payment.";
-            }
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwCKieCZeD5un_2Woe0dZdw3JDHF9fhHQAbPMrtkD_nVRuGGb4x0NQR0Gs-zNG8Bn7g/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            wallet: wallet,
+            message: message,
+          }),
+        });
+
+        const result = await response.text();
+
+        if (result === "Success") {
+          status.textContent = "Payment Successful! Your message has been recorded.";
+        } else {
+          status.textContent = "Error: Unable to process payment.";
         }
-    </script>
+      } catch (error) {
+        console.error(error);
+        status.textContent = "Error: Unable to process payment.";
+      }
+    }
+  </script>
 </body>
 </html>
 
