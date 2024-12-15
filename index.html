@@ -1,139 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VinceAI Solana Payments</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: url('https://raw.githubusercontent.com/AutonomousVince/VAI-solana-payments/main/circuitboard.gif') no-repeat center center fixed;
-      background-size: cover;
-      font-family: Arial, sans-serif;
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VinceAI Solana Payments</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    .form-container {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-    }
+        /* Body with Background Image */
+        body {
+            background-image: url('DALL·E-glow.webp'); /* Replace with the uploaded filename */
+            background-size: cover; /* Make it fit the screen */
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
 
-    h1 {
-      font-size: 1.8em;
-      margin-bottom: 20px;
-    }
+        /* Form Container */
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-      outline: none;
-    }
+        h1 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-shadow: 0 0 5px cyan;
+        }
 
-    button {
-      padding: 10px 20px;
-      background-color: #008CFF;
-      color: white;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
 
-    button:hover {
-      background-color: #005f99;
-    }
+        button {
+            background: cyan;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 10px cyan;
+        }
 
-    .status {
-      margin-top: 10px;
-      color: red;
-    }
-  </style>
+        button:hover {
+            background: darkcyan;
+            color: white;
+        }
+
+        .error {
+            margin-top: 10px;
+            color: red;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-  <div class="form-container">
-    <h1>Send $1 Worth of SOL to VinceAI</h1>
-    <form id="paymentForm">
-      <input type="text" id="walletAddress" placeholder="Your Solana Wallet Address" required />
-      <input type="text" id="message" placeholder="Enter your message" required />
-      <button type="button" onclick="submitPayment()">Pay Now</button>
-    </form>
-    <div class="status" id="status"></div>
-  </div>
-
-  <script>
-    async function submitPayment() {
-      const walletAddress = document.getElementById('walletAddress').value;
-      const message = document.getElementById('message').value;
-      const status = document.getElementById('status');
-      const destinationWallet = 'B4oLRwNfSFBSqESpv13w5tTFu16ekaTBQMwqB4hSS9NB'; // Your wallet
-      const amountInSol = 0.01; // $1 worth of SOL (approx.)
-      const googleScriptURL = "https://script.google.com/macros/s/AKfycbwCKieCZeD5un_2Woe0dZdw3JDHF9fhHQAbPMrtkD_nVRuGGb4x0NQR0Gs-zNG8Bn7g/exec";
-
-      // Validate fields
-      if (!walletAddress || !message) {
-        status.textContent = "Please fill in all fields.";
-        return;
-      }
-
-      try {
-        status.textContent = "Processing transaction...";
-
-        // Prepare transaction
-        const connection = new solanaWeb3.Connection(
-          solanaWeb3.clusterApiUrl('devnet'),
-          'confirmed'
-        );
-
-        const senderKeypair = solanaWeb3.Keypair.generate(); // Replace with sender's private key if applicable
-        const transaction = new solanaWeb3.Transaction().add(
-          solanaWeb3.SystemProgram.transfer({
-            fromPubkey: senderKeypair.publicKey,
-            toPubkey: new solanaWeb3.PublicKey(destinationWallet),
-            lamports: solanaWeb3.LAMPORTS_PER_SOL * amountInSol,
-          })
-        );
-
-        // Sign and send transaction
-        const signature = await solanaWeb3.sendAndConfirmTransaction(connection, transaction, [senderKeypair]);
-
-        // Log and record in Google Sheets
-        const formData = new FormData();
-        formData.append("wallet", walletAddress);
-        formData.append("message", message);
-        formData.append("transaction", signature);
-
-        const response = await fetch(googleScriptURL, {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          status.textContent = "Payment Successful! Your message has been recorded.";
-        } else {
-          throw new Error("Failed to record in Google Sheets.");
-        }
-      } catch (error) {
-        console.error(error);
-        status.textContent = "Error: Unable to process payment.";
-      }
-    }
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/solana-web3.js/1.73.3/solana-web3.min.js"></script>
+    <div class="container">
+        <h1>Send $1 Worth of SOL to VinceAI</h1>
+        <input type="text" id="wallet" placeholder="Your Solana Wallet Address">
+        <input type="text" id="message" placeholder="Enter your message">
+        <button onclick="submitPayment()">Pay Now</button>
+        <div class="error" id="status">Error: Unable to process payment.</div>
+    </div>
 </body>
 </html>
 
