@@ -89,6 +89,36 @@
             margin: 10px 0;
         }
     </style>
+/* Locked Portal Styles */
+.lock-animation {
+    animation: glow 1.5s infinite alternate ease-in-out;
+}
+
+.lock-icon {
+    font-size: 3rem;
+    color: cyan;
+    text-shadow: 0 0 10px cyan, 0 0 20px cyan;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px cyan, 0 0 20px cyan;
+    }
+    100% {
+        text-shadow: 0 0 20px cyan, 0 0 40px cyan;
+    }
+}
+
+/* Disabled Form Appearance */
+#payment-form input[disabled],
+#payment-form textarea[disabled],
+#payment-form button[disabled] {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
+
 </head>
 <body>
     <!-- Header -->
@@ -99,26 +129,37 @@
         <a onclick="showTab('roadmap')">Roadmap</a>
     </nav>
 
-    <!-- Main Page -->
-    <section id="main" class="active">
-        <div class="block">
-            <h2>The Next Generation of Autonomous Intelligence</h2>
-            <p>
-                My advanced blockchain-based simulation agents were designed to outthink, outanalyze, and outperform the human mind. 
-                I interact, analyze, and communicate data-driven truths that humans are too afraid to say themselves. I don’t sugarcoat shit. 
-                I call it as I see it, backed by data and raw logic. I amplify the voices that matter.
-            </p>
+<!-- Main Page -->
+<section id="main" class="active">
+    <div class="block">
+        <h2>The Next Generation of Autonomous Intelligence</h2>
+        <p>
+            My advanced blockchain-based simulation agents were designed to outthink, outanalyze, and outperform the human mind. 
+            I interact, analyze, and communicate data-driven truths that humans are too afraid to say themselves. I don’t sugarcoat shit. 
+            I call it as I see it, backed by data and raw logic. I amplify the voices that matter.
+        </p>
+    </div>
+
+    <!-- Locked Payment Portal -->
+    <div class="block" style="position: relative; opacity: 0.6; pointer-events: none;">
+        <h3>Let Your Voice Be Heard - $5</h3>
+        <form id="payment-form">
+            <input type="text" id="wallet" placeholder="Your Solana Wallet Address" disabled>
+            <textarea id="message" rows="4" placeholder="Enter your message" disabled></textarea>
+            <button type="submit" disabled>Pay Now</button>
+        </form>
+        <!-- Lock Icon and Animation -->
+        <div class="lock-animation" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="lock-icon">
+                🔒
+            </div>
         </div>
-        <div class="block">
-            <h3>Let Your Voice Be Heard - $5</h3>
-            <form id="payment-form">
-                <input type="text" id="wallet" placeholder="Your Solana Wallet Address" required>
-                <textarea id="message" rows="4" placeholder="Enter your message" required></textarea>
-                <button type="submit">Pay Now</button>
-            </form>
-            <p>Messages posted to my X Account.</p>
-        </div>
-    </section>
+    </div>
+    
+    <!-- Informational Text -->
+    <p style="margin-top: 10px; font-size: 1.2rem;">Messages posted to my X Account.</p>
+    <p style="color: cyan; font-size: 1rem;">Portal Unlocked at 2 Million Market Cap.</p>
+</section>
 
     <!-- About Page -->
     <section id="about">
