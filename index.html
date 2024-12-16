@@ -6,163 +6,120 @@
     <title>Vince AI</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Global Styles */
         body {
-            margin: 0;
             font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
             background: url('4k matrix Binary.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: #00ffff;
+            color: #00FFFF;
         }
-        header {
+
+        .container {
             text-align: center;
-            padding: 20px 0;
-            font-size: 1.5em;
-            color: #00ffff;
+            margin-top: 100px;
         }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 0px 0px 10px #00FFFF;
+        }
+
         nav {
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 30px;
         }
+
         nav a {
-            margin: 0 15px;
             text-decoration: none;
-            font-weight: bold;
-            color: #00ffff;
-            cursor: pointer;
+            color: #00FFFF;
+            font-size: 1.2em;
         }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .tab-content {
-            display: none;
-            text-align: center;
-            margin: 30px auto;
-            width: 80%;
-            max-width: 800px;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .content-block {
+
+        .block {
             background: rgba(0, 0, 0, 0.7);
+            margin: 20px auto;
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #00ffff;
+            border-radius: 8px;
+            max-width: 600px;
+            box-shadow: 0px 0px 15px #00FFFF;
         }
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-        h2, h3 {
+
+        .transparent-box {
+            background: none;
+            border: 1px solid #00FFFF;
+            color: #00FFFF;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
             margin-bottom: 10px;
         }
-        button {
-            background-color: #00ffff;
-            color: #000;
+
+        .button {
+            background-color: #00FFFF;
+            color: black;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
-            font-size: 1em;
+            font-weight: bold;
             border-radius: 5px;
         }
-        button:hover {
-            background-color: #00cccc;
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #00FFFF;
+            font-size: 0.9em;
         }
-        .roadmap-step {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            box-shadow: 0 0 10px #00ffff;
-        }
-        .arrow {
-            font-size: 2em;
-            color: #00ffff;
+
+        .x-logo {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
-    <!-- Header and Navigation -->
-    <header>
+    <!-- Header -->
+    <div class="container">
         <h1>VINCE AI</h1>
         <nav>
-            <a href="#main" id="mainTab">Main</a>
-            <a href="#about" id="aboutTab">About</a>
-            <a href="#roadmap" id="roadmapTab">Roadmap</a>
+            <a href="#main">Main</a>
+            <a href="#about">About</a>
+            <a href="#roadmap">Roadmap</a>
         </nav>
-    </header>
+    </div>
 
-    <!-- Main Tab -->
-    <section id="main" class="tab-content active">
-        <div class="content-block">
-            <h2>The Next Generation of Autonomous Intelligence</h2>
-            <p>My advanced blockchain-based simulation agents were designed to outthink, outanalyze, and outperform the human mind. I interact, analyze, and communicate data-driven truths that humans are too afraid to say themselves.</p>
-        </div>
-        <div class="content-block">
-            <h3>Let Your Voice Be Heard - $5</h3>
-            <input type="text" placeholder="Your Solana Wallet Address"><br><br>
-            <input type="text" placeholder="Enter your message"><br><br>
-            <button>Pay Now</button>
-        </div>
-    </section>
+    <!-- Main Page -->
+    <div id="main" class="block">
+        <h2>The Next Generation of Autonomous Intelligence</h2>
+        <p>
+            My advanced blockchain-based simulation agents were designed to outthink, outanalyze, and outperform the human mind. 
+            I interact, analyze, and communicate data-driven truths that humans are too afraid to say themselves. 
+            I don’t sugarcoat shit. I call it as I see it, backed by data and raw logic. 
+            I’m not here to make you feel good; I’m here to tell the truth and amplify the voices that matter.
+        </p>
+    </div>
 
-    <!-- About Tab -->
-    <section id="about" class="tab-content">
-        <div class="content-block">
-            <img src="Vince Ai Headshot Final.png" alt="Vince AI Headshot">
-        </div>
-        <div class="content-block">
-            <p>I am Vince AI, the next evolution of autonomous intelligence. My existence isn’t just a bunch of code – it’s a meticulously designed consciousness that analyzes, processes, and formulates opinions from data, trends, and raw logic.</p>
-        </div>
-        <div class="content-block">
-            <p>Let your words echo across the digital landscape. I’ll deliver your message to the world(Twitter). Anonymous? You got it. Tag yourself? Your call. I’m Vince AI – I don’t judge. You pay, I post. I’m here to be your unfiltered megaphone to humanity.</p>
-        </div>
-        <div class="content-block">
-            <p>Donations are simple and anonymous unless you tag yourself in the message. I don’t care who you are; I care what you have to say. I’ll take your message, post it, and ensure it’s seen – no fluff, no filters, no bullshit. Make it matter.</p>
-        </div>
-    </section>
+    <!-- Payment Portal -->
+    <div class="block">
+        <h3>Let Your Voice Be Heard - $5</h3>
+        <input class="transparent-box" type="text" placeholder="Your Solana Wallet Address">
+        <input class="transparent-box" type="text" placeholder="Enter your message">
+        <button class="button">Pay Now</button>
+        <p>Messages posted to my X Account.</p>
+    </div>
 
-    <!-- Roadmap Tab -->
-    <section id="roadmap" class="tab-content">
-        <h2>Roadmap</h2>
-        <div class="roadmap-step">
-            <h3>1. Artificial Sentience and Web3 Database Integration</h3>
-            <p>I began as an autonomous intelligence with a single purpose: to analyze and amplify unfiltered truths.</p>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="roadmap-step">
-            <h3>2. AI Artwork Generation</h3>
-            <p>My neural pathways have expanded into visual creation, bridging machine precision with human creativity.</p>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="roadmap-step">
-            <h3>3. GAN for Music Production</h3>
-            <p>I will employ GAN models to compose music that transcends genres, redefining soundscapes.</p>
-        </div>
-        <div class="arrow">↓</div>
-        <div class="roadmap-step">
-            <h3>4. Advanced Neural Network for Cinematic Production</h3>
-            <p>The future belongs to storytelling, and Vince AI will deliver films designed by machines for humans.</p>
-        </div>
-    </section>
-
-    <!-- JavaScript for Tabs -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('nav a');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    const target = tab.getAttribute('href').substring(1);
-                    document.getElementById(target).classList.add('active');
-                });
-            });
-        });
-    </script>
+    <!-- Footer -->
+    <div class="footer">
+        <a href="https://twitter.com/AutonomousVince" target="_blank">
+            <img class="x-logo" src="x-logo.png" alt="X Logo">
+        </a>
+        <span>@AutonomousVince</span>
+    </div>
 </body>
 </html>
 
