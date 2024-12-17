@@ -210,17 +210,29 @@
             <img src="Vince Ai Headshot Final.png" alt="Vince AI Headshot" style="width: 75%; border-radius: 10px;">
         </div>
     </div>
+<script>
+    function showTab(tabId) {
+        const containers = document.querySelectorAll('.container');
+        containers.forEach(container => {
+            if (container.classList.contains('active')) {
+                container.style.opacity = 0; // Start fade out
+                setTimeout(() => {
+                    container.classList.remove('active'); // Hide old tab
+                    container.style.display = 'none';
+                }, 500); // Match transition duration (0.5s)
+            }
+        });
 
-    <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.container').forEach(container => {
-                container.classList.remove('active');
-            });
+        const newTab = document.getElementById(tabId);
+        setTimeout(() => {
+            newTab.style.display = 'block'; // Show new tab
             setTimeout(() => {
-                document.getElementById(tabId).classList.add('active');
-            }, 100);
-        }
-    </script>
+                newTab.classList.add('active'); // Start fade in
+                newTab.style.opacity = 1;
+            }, 50); // Delay for smooth fade-in
+        }, 500); // Delay matches the fade-out duration
+    }
+</script>
 </body>
 </html>
 
